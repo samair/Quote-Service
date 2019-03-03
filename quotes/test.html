@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+
+<div class="container" ng-app="myApp" ng-controller="formCtrl" ng-init="init()>
+  <div class="page-header">
+    <h1>Stock Qoute </h1>   
+   
+  
+  <div class="jumbotron">
+  
+
+<div class="form-row align-items-center">
+  <div class="col-xs-2" >  
+    <label for="from"> Company Symbol :</label>
+     <input id="from" class="form-control" type="text" ng-model="user.from">
+	</div>
+	
+ 	<div>  
+	<button ng-click="convert()" class="btn btn-success">Convert</button>
+    </div>
+    <br>
+    
+    <br>
+</div>
+	<div ng-if="myVar" class="d-flex align-items-center">
+	  <strong>Loading...</strong>
+	  <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+	</div>
+
+   <div ng-if="qouteVar" >
+   
+  <p>{{qoute}}</p>
+  </div>
+ 
+  
+  <div ng-if="alert" class="alert alert-danger">
+    <strong>Error!</strong>{{qoute}}
+  </div>
+  
+
+</div>
+
+
+
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('formCtrl', function($scope,$http) {
+
+    
+	$scope.init= function(){
+    	$scope.myVar=false;
+	    $scope.qouteVar=false;
+		$scope.alert=false;
+	}
+	
+    $scope.convert = function() {
+	$scope.myVar=true;
+	$scope.qouteVar=false;
+	$scope.alert=false;
+    $conversionUrl = "http://localhost:8080/qoutes/";
+    
+	$http({
+			method : "GET",
+            url : $conversionUrl+$scope.user.from
+	}).then(function mySuccess(response) {
+	
+		$scope.myVar=false;
+		$scope.qouteVar=true;
+		$scope.qoute = response.data;
+
+	}, function myError(response) {
+		$scope.myVar=false;
+		$scope.qouteVar=true;
+		$scope.qoute = response;
+	});
+    
+    };
+
+});
+</script>
+ </body>
+</html>
