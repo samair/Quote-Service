@@ -1,4 +1,5 @@
 # Quote-Service
+[![Build Status](https://travis-ci.com/samair/Quote-Service.svg?branch=master)](https://travis-ci.com/samair/Quote-Service)
 
 Service [is live in GCE]
 
