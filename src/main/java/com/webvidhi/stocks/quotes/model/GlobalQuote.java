@@ -24,127 +24,136 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class GlobalQuote {
 
+public GlobalQuote() {
+
+	}
+
 @JsonProperty("01. symbol")
-private String _01Symbol;
+private String Symbol;
 @JsonProperty("02. open")
-private String _02Open;
+private String Open;
 @JsonProperty("03. high")
-private String _03High;
+private String High;
 @JsonProperty("04. low")
-private String _04Low;
+private String Low;
 @JsonProperty("05. price")
-private String _05Price;
+private String Price;
 @JsonProperty("06. volume")
-private String _06Volume;
+private String Volume;
 @JsonProperty("07. latest trading day")
-private String _07LatestTradingDay;
+private String LatestTradingDay;
 @JsonProperty("08. previous close")
-private String _08PreviousClose;
+private String PreviousClose;
 @JsonProperty("09. change")
-private String _09Change;
+private String Change;
 @JsonProperty("10. change percent")
-private String _10ChangePercent;
+private String ChangePercent;
+
+private boolean error;
+
+private boolean invalidSymbol;
+
 @JsonIgnore
 private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
 @JsonProperty("01. symbol")
 public String get01Symbol() {
-return _01Symbol;
+return Symbol;
 }
 
 @JsonProperty("01. symbol")
 public void set01Symbol(String _01Symbol) {
-this._01Symbol = _01Symbol;
+this.Symbol = _01Symbol;
 }
 
 @JsonProperty("02. open")
 public String get02Open() {
-return _02Open;
+return Open;
 }
 
 @JsonProperty("02. open")
 public void set02Open(String _02Open) {
-this._02Open = _02Open;
+this.Open = _02Open;
 }
 
 @JsonProperty("03. high")
 public String get03High() {
-return _03High;
+return High;
 }
 
 @JsonProperty("03. high")
 public void set03High(String _03High) {
-this._03High = _03High;
+this.High = _03High;
 }
 
 @JsonProperty("04. low")
 public String get04Low() {
-return _04Low;
+return Low;
 }
 
 @JsonProperty("04. low")
 public void set04Low(String _04Low) {
-this._04Low = _04Low;
+this.Low = _04Low;
 }
 
 @JsonProperty("05. price")
 public String get05Price() {
-return _05Price;
+return Price;
 }
 
 @JsonProperty("05. price")
 public void set05Price(String _05Price) {
-this._05Price = _05Price;
+this.Price = _05Price;
 }
 
 @JsonProperty("06. volume")
 public String get06Volume() {
-return _06Volume;
+return Volume;
 }
 
 @JsonProperty("06. volume")
 public void set06Volume(String _06Volume) {
-this._06Volume = _06Volume;
+this.Volume = _06Volume;
 }
 
 @JsonProperty("07. latest trading day")
 public String get07LatestTradingDay() {
-return _07LatestTradingDay;
+return LatestTradingDay;
 }
 
 @JsonProperty("07. latest trading day")
 public void set07LatestTradingDay(String _07LatestTradingDay) {
-this._07LatestTradingDay = _07LatestTradingDay;
+this.LatestTradingDay = _07LatestTradingDay;
 }
 
 @JsonProperty("08. previous close")
 public String get08PreviousClose() {
-return _08PreviousClose;
+return PreviousClose;
 }
 
 @JsonProperty("08. previous close")
 public void set08PreviousClose(String _08PreviousClose) {
-this._08PreviousClose = _08PreviousClose;
+this.PreviousClose = _08PreviousClose;
 }
 
 @JsonProperty("09. change")
 public String get09Change() {
-return _09Change;
+return Change;
 }
 
 @JsonProperty("09. change")
 public void set09Change(String _09Change) {
-this._09Change = _09Change;
+this.Change = _09Change;
 }
 
 @JsonProperty("10. change percent")
 public String get10ChangePercent() {
-return _10ChangePercent;
+return ChangePercent;
 }
 
 @JsonProperty("10. change percent")
 public void set10ChangePercent(String _10ChangePercent) {
-this._10ChangePercent = _10ChangePercent;
+this.ChangePercent = _10ChangePercent;
 }
 
 @JsonAnyGetter
@@ -156,6 +165,26 @@ return this.additionalProperties;
 public void setAdditionalProperty(String name, Object value) {
 this.additionalProperties.put(name, value);
 }
+
+
+public boolean isError() {
+	return error;
+}
+
+public void setError(boolean error) {
+	this.error = error;
+}
+
+public boolean isInvalidSymbol() {
+	return invalidSymbol;
+	
+}
+
+public void setInvalidSymbol(boolean invalSym) {
+	this.invalidSymbol = invalSym;
+	
+}
+
 
 }
 
