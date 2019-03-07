@@ -1,7 +1,11 @@
 package com.webvidhi.stocks.quotes.query;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.webvidhi.stocks.quotes.model.BestMatchSymbol;
 import com.webvidhi.stocks.quotes.model.GlobalQuote;
 
 
@@ -12,13 +16,20 @@ import com.webvidhi.stocks.quotes.model.GlobalQuote;
 @Service
 public class QuoteQueryDispatcher {
 	
-	
+	@Autowired
+	AlphaQueryDispatcher endpoint;
 
-	public static GlobalQuote getQouteInformation(String symbol) {
+	public GlobalQuote getQouteInformation(String symbol) {
 		
-		QuoteEndpointIntf endpoint = new AlphaQueryDispatcher();
 		
 		return (GlobalQuote) endpoint.getQouteInfromation(symbol);
+		
+		
+	}
+	public List<BestMatchSymbol> getSymbolNames(String searchKey) {
+		
+		
+		return (List<BestMatchSymbol>) endpoint.serachSymbol(searchKey);
 		
 		
 	}

@@ -5,5 +5,7 @@ public interface QuoteEndpointIntf {
 	
 
 	public Object getQouteInfromation(String symbol);
+	
+	public Object serachSymbol(String searchKey);
 
 }
