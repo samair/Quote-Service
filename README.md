@@ -6,3 +6,6 @@ Service [is live in GCE]
 ### API Endpoints
 
 [is live in GCE]: <http://api.samair.xyz/qoutes/ABC>
+
+#### TODO
+- Encrypt API ketys using jaspyt
