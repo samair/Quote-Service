@@ -47,18 +47,17 @@ public class AlphaQueryDispatcher implements QuoteEndpointIntf {
     @Value("${alpha.Search}")
     private String searchQuery;
 
-    private void createURL(queryType type,String key){
+    private String createURL(queryType type,String key){
+    	logger.error("Base URL  : "+ this.url );
+    	String url = this.url;
     	
-    	if (type == queryType.Qoute){
-		this.url += quoteQuery;
-		this.url += key;
-		this.url += "&apikey="+apiKey;}
-    	else if (type == queryType.Search){
-    		this.url += searchQuery;
-    		this.url += key;
-    		this.url += "&apikey="+apiKey;
-    		
-    	}
+    	url += (type == queryType.Qoute) ? (quoteQuery) : (searchQuery);
+
+		url += key;
+		url += "&apikey="+apiKey;
+		
+    	logger.error("Complete URL  : "+ url );
+    	return url;
     }
 
 	@Override
@@ -66,7 +65,7 @@ public class AlphaQueryDispatcher implements QuoteEndpointIntf {
 
 	
 		//restTemplate = new RestTemplate();
-		createURL(queryType.Qoute,symbol);
+		String url = createURL(queryType.Qoute,symbol);
 		
 		logger.error("URL created is :" + url);
 
@@ -90,6 +89,7 @@ public class AlphaQueryDispatcher implements QuoteEndpointIntf {
 		else {
 			quote=response.getBody().getGlobalQuote();
 		}
+	//	this.url = "";
 		return quote;
 	}
 
@@ -97,7 +97,7 @@ public class AlphaQueryDispatcher implements QuoteEndpointIntf {
 	@Override
 	public List<BestMatchSymbol> serachSymbol (String searchKey) {
 		
-		createURL(queryType.Search,searchKey);
+		String url = createURL(queryType.Search,searchKey);
 		ResponseEntity<SearchResult> response = restTemplate.getForEntity(url, SearchResult.class);
 
 		
@@ -107,7 +107,8 @@ public class AlphaQueryDispatcher implements QuoteEndpointIntf {
         
         if (HttpStatus.OK == status){
         	
-        	logger.error("Found Entries " + response.getBody().getBestMatches().size());        	
+        	logger.error("Found Entries " + response.getBody().getBestMatches().size());   
+        	//this.url = "";
         	return response.getBody().getBestMatches();
         
         }
