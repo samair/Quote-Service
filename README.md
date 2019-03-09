@@ -9,3 +9,4 @@ Service [is live in GCE]
 
 #### TODO
 - Encrypt API ketys using jaspyt
+- Add cache for search endpoint
