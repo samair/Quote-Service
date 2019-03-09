@@ -1,5 +1,6 @@
 package com.webvidhi.stocks.quotes.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -21,8 +22,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 "8. currency",
 "9. matchScore"
 })
-public class BestMatchSymbol {
+public class BestMatchSymbol implements Serializable{
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 @JsonProperty("1. symbol")
 private String _1Symbol;
 @JsonProperty("2. name")

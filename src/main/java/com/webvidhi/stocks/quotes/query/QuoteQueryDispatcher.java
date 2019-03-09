@@ -22,14 +22,14 @@ public class QuoteQueryDispatcher {
 	public GlobalQuote getQouteInformation(String symbol) {
 		
 		
-		return (GlobalQuote) endpoint.getQouteInfromation(symbol);
+		return endpoint.getQouteInfromation(symbol);
 		
 		
 	}
 	public List<BestMatchSymbol> getSymbolNames(String searchKey) {
 		
 		
-		return (List<BestMatchSymbol>) endpoint.serachSymbol(searchKey);
+		return endpoint.serachSymbol(searchKey);
 		
 		
 	}

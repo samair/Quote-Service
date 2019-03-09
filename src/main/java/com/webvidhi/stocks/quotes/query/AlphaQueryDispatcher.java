@@ -1,5 +1,6 @@
 package com.webvidhi.stocks.quotes.query;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -89,12 +90,13 @@ public class AlphaQueryDispatcher implements QuoteEndpointIntf {
 		else {
 			quote=response.getBody().getGlobalQuote();
 		}
-	//	this.url = "";
+
 		return quote;
 	}
 
 
 	@Override
+	
 	public List<BestMatchSymbol> serachSymbol (String searchKey) {
 		
 		String url = createURL(queryType.Search,searchKey);
@@ -108,11 +110,11 @@ public class AlphaQueryDispatcher implements QuoteEndpointIntf {
         if (HttpStatus.OK == status){
         	
         	logger.error("Found Entries " + response.getBody().getBestMatches().size());   
-        	//this.url = "";
+
         	return response.getBody().getBestMatches();
         
         }
-		return null;
+		return Collections.emptyList();
 	}
 
 }
