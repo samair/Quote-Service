@@ -2,11 +2,15 @@ package com.webvidhi.stocks.quotes.query;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.webvidhi.stocks.quotes.model.BestMatchSymbol;
 import com.webvidhi.stocks.quotes.model.GlobalQuote;
+import com.webvidhi.stocks.quotes.model.TradierPojo;
+import com.webvidhi.stocks.quotes.model.TradierQuotes;
 
 
 
@@ -16,8 +20,11 @@ import com.webvidhi.stocks.quotes.model.GlobalQuote;
 @Service
 public class QuoteQueryDispatcher {
 	
-	@Autowired
+	@Resource
 	AlphaQueryDispatcher endpoint;
+	
+	@Resource
+	TradierDispatcher tradierEndpoint;
 
 	public GlobalQuote getQouteInformation(String symbol) {
 		
@@ -33,4 +40,12 @@ public class QuoteQueryDispatcher {
 		
 		
 	}
+	public GlobalQuote getQouteInformationV2(String symbol) {
+		
+		
+		return tradierEndpoint.getQouteInfromation(symbol);
+		
+		
+	}
 }
+

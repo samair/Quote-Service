@@ -2,52 +2,36 @@ package com.webvidhi.stocks.quotes.model;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+//@JsonIgnoreProperties({"bid","week_52_high","change”,“prevclose”,“week_52_low”,“asksize","ask_date","type","trade_date”,“volume","last_volume","change_percentage", "bidexch", "average_volume”,“exch","bidsize”,“ask","askexch","close","bid_date"})
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-"01. symbol",
-"02. open",
-"03. high",
-"04. low",
-"05. price",
-"06. volume",
-"07. latest trading day",
-"08. previous close",
-"09. change",
-"10. change percent"
-})
+
 public class GlobalQuote {
 
 public GlobalQuote() {
 
 	}
 
-@JsonProperty("01. symbol")
+
 private String Symbol;
-@JsonProperty("02. open")
+
 private String Open;
-@JsonProperty("03. high")
+
 private String High;
-@JsonProperty("04. low")
+
 private String Low;
-@JsonProperty("05. price")
+
 private String Price;
-@JsonProperty("06. volume")
-private String Volume;
-@JsonProperty("07. latest trading day")
-private String LatestTradingDay;
-@JsonProperty("08. previous close")
-private String PreviousClose;
-@JsonProperty("09. change")
-private String Change;
-@JsonProperty("10. change percent")
-private String ChangePercent;
 
 private boolean error;
 
@@ -61,7 +45,7 @@ public String get01Symbol() {
 return Symbol;
 }
 
-@JsonProperty("01. symbol")
+@JsonAlias({"01. symbol","symbol"})
 public void set01Symbol(String _01Symbol) {
 this.Symbol = _01Symbol;
 }
@@ -71,7 +55,7 @@ public String get02Open() {
 return Open;
 }
 
-@JsonProperty("02. open")
+@JsonAlias({"02. open","open"})
 public void set02Open(String _02Open) {
 this.Open = _02Open;
 }
@@ -81,7 +65,7 @@ public String get03High() {
 return High;
 }
 
-@JsonProperty("03. high")
+@JsonAlias({"03. high","high"})
 public void set03High(String _03High) {
 this.High = _03High;
 }
@@ -91,7 +75,7 @@ public String get04Low() {
 return Low;
 }
 
-@JsonProperty("04. low")
+@JsonAlias({"04. low", "low"})
 public void set04Low(String _04Low) {
 this.Low = _04Low;
 }
@@ -101,71 +85,10 @@ public String get05Price() {
 return Price;
 }
 
-@JsonProperty("05. price")
+@JsonAlias({"05. price","last"})
 public void set05Price(String _05Price) {
 this.Price = _05Price;
 }
-
-@JsonProperty("06. volume")
-public String get06Volume() {
-return Volume;
-}
-
-@JsonProperty("06. volume")
-public void set06Volume(String _06Volume) {
-this.Volume = _06Volume;
-}
-
-@JsonProperty("07. latest trading day")
-public String get07LatestTradingDay() {
-return LatestTradingDay;
-}
-
-@JsonProperty("07. latest trading day")
-public void set07LatestTradingDay(String _07LatestTradingDay) {
-this.LatestTradingDay = _07LatestTradingDay;
-}
-
-@JsonProperty("08. previous close")
-public String get08PreviousClose() {
-return PreviousClose;
-}
-
-@JsonProperty("08. previous close")
-public void set08PreviousClose(String _08PreviousClose) {
-this.PreviousClose = _08PreviousClose;
-}
-
-@JsonProperty("09. change")
-public String get09Change() {
-return Change;
-}
-
-@JsonProperty("09. change")
-public void set09Change(String _09Change) {
-this.Change = _09Change;
-}
-
-@JsonProperty("10. change percent")
-public String get10ChangePercent() {
-return ChangePercent;
-}
-
-@JsonProperty("10. change percent")
-public void set10ChangePercent(String _10ChangePercent) {
-this.ChangePercent = _10ChangePercent;
-}
-
-@JsonAnyGetter
-public Map<String, Object> getAdditionalProperties() {
-return this.additionalProperties;
-}
-
-@JsonAnySetter
-public void setAdditionalProperty(String name, Object value) {
-this.additionalProperties.put(name, value);
-}
-
 
 public boolean isError() {
 	return error;
