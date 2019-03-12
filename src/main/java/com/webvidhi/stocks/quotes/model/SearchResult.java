@@ -23,14 +23,20 @@ private List<BestMatchSymbol> bestMatches = null;
 @JsonIgnore
 private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+/*
 @JsonAlias({"bestMatches","security"})
 public List<BestMatchSymbol> getBestMatches() {
 return bestMatches;
+}*/
+
+@JsonAnyGetter
+public Map<String, Object> getAdditionalProperties() {
+return this.additionalProperties;
 }
 
-@JsonAlias({"bestMatches","security"})
-public void setBestMatches(List<BestMatchSymbol> bestMatches) {
-this.bestMatches = bestMatches;
+@JsonAnySetter
+public void setAdditionalProperty(String name, Object value) {
+this.additionalProperties.put(name, value);
 }
 
 

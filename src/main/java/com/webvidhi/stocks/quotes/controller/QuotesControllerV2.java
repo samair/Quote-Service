@@ -1,6 +1,7 @@
 package com.webvidhi.stocks.quotes.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -32,7 +33,7 @@ public class QuotesControllerV2 {
 	
 	@GetMapping("search/{searchKey}")
 	//@Cacheable("search")
-	public List<BestMatchSymbol> searchSymbols(@PathVariable String searchKey) {
+	public Object searchSymbols(@PathVariable String searchKey) {
 		
 		return   dispatcher.getSymbolNamesV2(searchKey);
 	}

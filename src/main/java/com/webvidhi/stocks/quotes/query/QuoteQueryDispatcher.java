@@ -1,6 +1,7 @@
 package com.webvidhi.stocks.quotes.query;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -33,13 +34,16 @@ public class QuoteQueryDispatcher {
 		
 		
 	}
-	public List<BestMatchSymbol> getSymbolNames(String searchKey) {
-		
-		
-		return endpoint.serachSymbol(searchKey);
-		
-		
-	}
+
+	/*
+	 * public List<BestMatchSymbol> getSymbolNames(String searchKey) {
+	 * 
+	 * 
+	 * return endpoint.serachSymbol(searchKey);
+	 * 
+	 * 
+	 * }
+	 */
 	public GlobalQuote getQouteInformationV2(String symbol) {
 		
 		
@@ -47,7 +51,7 @@ public class QuoteQueryDispatcher {
 		
 		
 	}
-	public List<BestMatchSymbol> getSymbolNamesV2(String searchKey) {
+	public Object getSymbolNamesV2(String searchKey) {
 		
 		
 		return tradierEndpoint.serachSymbol(searchKey);

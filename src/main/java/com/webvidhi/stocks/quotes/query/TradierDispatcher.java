@@ -2,6 +2,7 @@ package com.webvidhi.stocks.quotes.query;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,7 +119,7 @@ public class TradierDispatcher implements QuoteEndpointIntf {
 
 	@Override
 	
-	public List<BestMatchSymbol> serachSymbol (String searchKey) {
+	public Object serachSymbol (String searchKey) {
 		
 
 		String url = createURL(queryType.Search,searchKey);
@@ -136,14 +137,19 @@ public class TradierDispatcher implements QuoteEndpointIntf {
         
         logger.debug("URL : "+ url+" serachSymbol HTTP response status : "+ status);
         
-        if (HttpStatus.OK == status){
+        if (HttpStatus.OK == status && null!= response.getBody().getResults()){
         	
-        	logger.debug("Found Entries " + response.getBody().getResults().getBestMatches().size());   
+        	logger.debug("Found Entries ");   
 
-        	return response.getBody().getResults().getBestMatches();
+        	return response.getBody().getResults().getAdditionalProperties();
         
         }
-		return Collections.emptyList();
+        else  if (null == response.getBody().getResults()){
+        	
+        	return  response.getBody();
+        	
+        }
+		return Collections.emptyMap();
 	}
 
 }

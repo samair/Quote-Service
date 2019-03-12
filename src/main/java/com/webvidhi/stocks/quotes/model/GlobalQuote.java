@@ -33,6 +33,9 @@ private String Low;
 
 private String Price;
 
+
+private String ChangePercent;
+
 private boolean error;
 
 private boolean invalidSymbol;
@@ -107,7 +110,15 @@ public void setInvalidSymbol(boolean invalSym) {
 	this.invalidSymbol = invalSym;
 	
 }
+@JsonAlias({"10. change percent","change_percentage"})
+public void set10ChangePercent(String _10ChangePercent) {
+this.ChangePercent = _10ChangePercent;
+}
 
+@JsonProperty("10. change percent")
+public String getChangePercent() {
+return ChangePercent;
+}
 
 }
 

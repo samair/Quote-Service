@@ -2,6 +2,7 @@ package com.webvidhi.stocks.quotes.query;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,7 +98,7 @@ public class AlphaQueryDispatcher implements QuoteEndpointIntf {
 
 	@Override
 	
-	public List<BestMatchSymbol> serachSymbol (String searchKey) {
+	public Map<String,Object> serachSymbol (String searchKey) {
 		
 		String url = createURL(queryType.Search,searchKey);
 		ResponseEntity<SearchResult> response = restTemplate.getForEntity(url, SearchResult.class);
@@ -109,12 +110,13 @@ public class AlphaQueryDispatcher implements QuoteEndpointIntf {
         
         if (HttpStatus.OK == status){
         	
-        	logger.error("Found Entries " + response.getBody().getBestMatches().size());   
+        	logger.error("Found Entries " + response.getBody().getAdditionalProperties());   
 
-        	return response.getBody().getBestMatches();
+        	return response.getBody().getAdditionalProperties();
+        			
         
         }
-		return Collections.emptyList();
+		return Collections.emptyMap();
 	}
 
 }
