@@ -47,5 +47,12 @@ public class QuoteQueryDispatcher {
 		
 		
 	}
+	public List<BestMatchSymbol> getSymbolNamesV2(String searchKey) {
+		
+		
+		return tradierEndpoint.serachSymbol(searchKey);
+		
+		
+	}
 }
 

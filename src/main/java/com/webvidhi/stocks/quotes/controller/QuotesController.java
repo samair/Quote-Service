@@ -33,10 +33,10 @@ public class QuotesController {
 	}
 	
 	@GetMapping("search/{searchKey}")
-	@Cacheable("search")
+	//@Cacheable("search")
 	public List<BestMatchSymbol> searchSymbols(@PathVariable String searchKey) {
 		
-		return   dispatcher.getSymbolNames(searchKey);
+		return   dispatcher.getSymbolNamesV2(searchKey);
 	}
 
 }

@@ -3,6 +3,8 @@ package com.webvidhi.stocks.quotes.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,23 +23,15 @@ private List<BestMatchSymbol> bestMatches = null;
 @JsonIgnore
 private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-@JsonProperty("bestMatches")
+@JsonAlias({"bestMatches","security"})
 public List<BestMatchSymbol> getBestMatches() {
 return bestMatches;
 }
 
-@JsonProperty("bestMatches")
+@JsonAlias({"bestMatches","security"})
 public void setBestMatches(List<BestMatchSymbol> bestMatches) {
 this.bestMatches = bestMatches;
 }
 
-@JsonAnyGetter
-public Map<String, Object> getAdditionalProperties() {
-return this.additionalProperties;
-}
 
-@JsonAnySetter
-public void setAdditionalProperty(String name, Object value) {
-this.additionalProperties.put(name, value);
-}
 }

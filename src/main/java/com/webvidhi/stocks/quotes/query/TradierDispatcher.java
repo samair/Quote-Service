@@ -19,6 +19,7 @@ import com.webvidhi.stocks.quotes.model.AlphaQuoteResponse;
 import com.webvidhi.stocks.quotes.model.BestMatchSymbol;
 import com.webvidhi.stocks.quotes.model.GlobalQuote;
 import com.webvidhi.stocks.quotes.model.SearchResult;
+import com.webvidhi.stocks.quotes.model.SymbolSearch;
 import com.webvidhi.stocks.quotes.model.TradierPojo;
 import com.webvidhi.stocks.quotes.model.TradierQuotes;
 import com.webvidhi.stocks.quotes.query.AlphaQueryDispatcher.queryType;
@@ -43,16 +44,16 @@ public class TradierDispatcher implements QuoteEndpointIntf {
 
 	private RestTemplate restTemplate;
 	
-	//@Value("${tradier.symbolQuery:Default value}")
+	@Value("${tradier.marketQuery:Default value}")
 	private String url;
 	
-	//@Value("${tradier.apikey}")
+	@Value("${tradier.apikey}")
 	private String apiKey;
 	
-   // @Value("${tradier.Quote}")
+    @Value("${tradier.Quote}")
 	private String quoteQuery;
     
-   // @Value("${tradier.Search}")
+    @Value("${tradier.Search}")
     private String searchQuery;
 
     private String createURL(queryType type,String key){
@@ -62,7 +63,7 @@ public class TradierDispatcher implements QuoteEndpointIntf {
     	url += (type == queryType.Qoute) ? (quoteQuery) : (searchQuery);
 
 		url += key;
-		url += "&apikey="+apiKey;
+	//	url += "&apikey="+apiKey;
 		
     	logger.error("Complete URL  : "+ url );
     	return url;
@@ -73,12 +74,11 @@ public class TradierDispatcher implements QuoteEndpointIntf {
 
 	
 		//restTemplate = new RestTemplate();
-		//String url = createURL(queryType.Qoute,symbol);
-		String url = "https://sandbox.tradier.com/v1/markets/quotes?symbols="+symbol;
+		String url = createURL(queryType.Qoute,symbol);
+		//String url = "https://sandbox.tradier.com/v1/markets/quotes?symbols="+symbol;
 		
 		logger.error("URL created is :" + url);
-		apiKey="5S9ZAdrlyPx1YkvpvZoKaxuakN09";
-		
+			
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		headers.setBearerAuth(apiKey);
@@ -87,24 +87,31 @@ public class TradierDispatcher implements QuoteEndpointIntf {
 		ResponseEntity<TradierPojo> response = restTemplate.exchange(url,HttpMethod.GET, entity,TradierPojo.class);
 		
 		GlobalQuote quote = null;
+		boolean isInvalid = false;
+		boolean isError = false;
 		
         HttpStatus status = response.getStatusCode();
-		if (HttpStatus.OK == status && (null == response.getBody()))
+		if (HttpStatus.OK == status && (null == response.getBody() || null == response.getBody().getQuotes() || null == response.getBody().getQuotes().getQuote()))
 	    {
-			//response.setInvalidSymbol(true);
-			logger.error("Invalid Symbol : ");
+			isInvalid = true;
+			logger.error("Invalid Symbol : " + isInvalid);
 			
 		}
 		else if (HttpStatus.OK != status) {
-			
-			logger.error("HTTP response status : " );
+			isError = true;
+			logger.error("HTTP response status : " + status);
 			
 		}
 		else {
 			quote=(GlobalQuote) response.getBody().getQuotes().getQuote();
-			logger.error("HTTP response status : " + status +" price : "+ quote.get05Price());
+			logger.debug("HTTP response status : " + status +" price : "+ quote.get05Price());
 		}
-
+		if (null == quote) {
+			quote = new GlobalQuote();
+			quote.setError(isError);
+			quote.setInvalidSymbol(isInvalid);
+		}
+		
 		return quote;
 	}
 
@@ -113,19 +120,27 @@ public class TradierDispatcher implements QuoteEndpointIntf {
 	
 	public List<BestMatchSymbol> serachSymbol (String searchKey) {
 		
+
 		String url = createURL(queryType.Search,searchKey);
-		ResponseEntity<SearchResult> response = restTemplate.getForEntity(url, SearchResult.class);
+		logger.debug("URL created is :" + url);
+			
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		headers.setBearerAuth(apiKey);
+		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+		
+		ResponseEntity<SymbolSearch> response = restTemplate.exchange(url,HttpMethod.GET, entity,SymbolSearch.class);
 
 		
         HttpStatus status = response.getStatusCode();
         
-        logger.error("URL : "+ url+"serachSymbol HTTP response status : "+ status);
+        logger.debug("URL : "+ url+" serachSymbol HTTP response status : "+ status);
         
         if (HttpStatus.OK == status){
         	
-        	logger.error("Found Entries " + response.getBody().getBestMatches().size());   
+        	logger.debug("Found Entries " + response.getBody().getResults().getBestMatches().size());   
 
-        	return response.getBody().getBestMatches();
+        	return response.getBody().getResults().getBestMatches();
         
         }
 		return Collections.emptyList();

@@ -3,6 +3,8 @@ package com.webvidhi.stocks.quotes.model;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -54,7 +56,7 @@ public String get1Symbol() {
 return _1Symbol;
 }
 
-@JsonProperty("1. symbol")
+@JsonAlias({"1. symbol","symbol"})
 public void set1Symbol(String _1Symbol) {
 this._1Symbol = _1Symbol;
 }
@@ -64,7 +66,7 @@ public String get2Name() {
 return _2Name;
 }
 
-@JsonProperty("2. name")
+@JsonAlias({"2. name", "description"})
 public void set2Name(String _2Name) {
 this._2Name = _2Name;
 }
@@ -74,7 +76,7 @@ public String get3Type() {
 return _3Type;
 }
 
-@JsonProperty("3. type")
+@JsonAlias({"3. type","type"})
 public void set3Type(String _3Type) {
 this._3Type = _3Type;
 }
@@ -84,7 +86,7 @@ public String get4Region() {
 return _4Region;
 }
 
-@JsonProperty("4. region")
+@JsonAlias({"4. region","exchange"})
 public void set4Region(String _4Region) {
 this._4Region = _4Region;
 }
@@ -137,16 +139,6 @@ return _9MatchScore;
 @JsonProperty("9. matchScore")
 public void set9MatchScore(String _9MatchScore) {
 this._9MatchScore = _9MatchScore;
-}
-
-@JsonAnyGetter
-public Map<String, Object> getAdditionalProperties() {
-return this.additionalProperties;
-}
-
-@JsonAnySetter
-public void setAdditionalProperty(String name, Object value) {
-this.additionalProperties.put(name, value);
 }
 
 }
