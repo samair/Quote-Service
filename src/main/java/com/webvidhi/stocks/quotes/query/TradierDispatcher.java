@@ -140,7 +140,10 @@ public class TradierDispatcher implements QuoteEndpointIntf {
         if (HttpStatus.OK == status && null!= response.getBody().getResults()){
         	
         	logger.debug("Found Entries ");   
-
+        	
+        	// Adding search-key so that every resoponse has information about what was
+        	// the search key
+        	response.getBody().getResults().setAdditionalProperty("search-key", searchKey);
         	return response.getBody().getResults().getAdditionalProperties();
         
         }
