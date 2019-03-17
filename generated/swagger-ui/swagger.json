@@ -1,0 +1,26 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Get quote information",
+    "version" : "v1",
+    "title" : "Quote Service",
+    "termsOfService" : "http://www.yourterms.com",
+    "contact" : {
+      "name" : "Sameer",
+      "url" : "test",
+      "email" : "tsameerc@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache",
+      "url" : "http://www.licence-url.com"
+    }
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/api-doc",
+  "schemes" : [ "http", "https" ],
+  "securityDefinitions" : {
+    "basicAuth" : {
+      "type" : "basic"
+    }
+  }
+}

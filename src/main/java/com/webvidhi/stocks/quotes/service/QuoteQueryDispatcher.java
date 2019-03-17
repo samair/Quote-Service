@@ -1,4 +1,4 @@
-package com.webvidhi.stocks.quotes.query;
+package com.webvidhi.stocks.quotes.service;
 
 import java.util.List;
 import java.util.Map;
@@ -35,16 +35,7 @@ public class QuoteQueryDispatcher {
 		
 	}
 
-	/*
-	 * public List<BestMatchSymbol> getSymbolNames(String searchKey) {
-	 * 
-	 * 
-	 * return endpoint.serachSymbol(searchKey);
-	 * 
-	 * 
-	 * }
-	 */
-	public GlobalQuote getQouteInformationV2(String symbol) {
+	public TradierPojo getQouteInformationV2(String symbol) {
 		
 		
 		return tradierEndpoint.getQouteInfromation(symbol);
@@ -58,5 +49,14 @@ public class QuoteQueryDispatcher {
 		
 		
 	}
+	
+	public TradierPojo getQouteInfoMulti(List<String> symbols) {
+		
+		
+		return tradierEndpoint.getMultiQuoteInfo(symbols);
+		
+		
+	}
+	
 }
 

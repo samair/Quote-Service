@@ -1,4 +1,4 @@
-package com.webvidhi.stocks.quotes.query;
+package com.webvidhi.stocks.quotes.service;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +23,7 @@ import com.webvidhi.stocks.quotes.model.SearchResult;
 import com.webvidhi.stocks.quotes.model.SymbolSearch;
 import com.webvidhi.stocks.quotes.model.TradierPojo;
 import com.webvidhi.stocks.quotes.model.TradierQuotes;
-import com.webvidhi.stocks.quotes.query.AlphaQueryDispatcher.queryType;
+import com.webvidhi.stocks.quotes.service.AlphaQueryDispatcher.queryType;
 
 @Service
 public class TradierDispatcher implements QuoteEndpointIntf {
@@ -71,7 +71,7 @@ public class TradierDispatcher implements QuoteEndpointIntf {
     }
 
 	@Override
-	public GlobalQuote getQouteInfromation(String symbol) {
+	public TradierPojo getQouteInfromation(String symbol) {
 
 	
 		//restTemplate = new RestTemplate();
@@ -87,33 +87,25 @@ public class TradierDispatcher implements QuoteEndpointIntf {
 		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 		ResponseEntity<TradierPojo> response = restTemplate.exchange(url,HttpMethod.GET, entity,TradierPojo.class);
 		
-		GlobalQuote quote = null;
-		boolean isInvalid = false;
+		TradierQuotes quote = null;
+
 		boolean isError = false;
 		
         HttpStatus status = response.getStatusCode();
-		if (HttpStatus.OK == status && (null == response.getBody() || null == response.getBody().getQuotes() || null == response.getBody().getQuotes().getQuote()))
+		if (HttpStatus.OK == status && (true == response.getBody().getQuotes().unmatchedSymbol()))
 	    {
-			isInvalid = true;
-			logger.error("Invalid Symbol : " + isInvalid);
+			logger.error("Invalid Symbol !!");
+			response.getBody().getQuotes().setInvalidSymbol(true);
 			
 		}
 		else if (HttpStatus.OK != status) {
 			isError = true;
+			
 			logger.error("HTTP response status : " + status);
 			
 		}
-		else {
-			quote=(GlobalQuote) response.getBody().getQuotes().getQuote();
-			logger.debug("HTTP response status : " + status +" price : "+ quote.get05Price());
-		}
-		if (null == quote) {
-			quote = new GlobalQuote();
-			quote.setError(isError);
-			quote.setInvalidSymbol(isInvalid);
-		}
 		
-		return quote;
+		return response.getBody();
 	}
 
 
@@ -153,6 +145,50 @@ public class TradierDispatcher implements QuoteEndpointIntf {
         	
         }
 		return Collections.emptyMap();
+	}
+
+	public TradierPojo getMultiQuoteInfo(List<String> symbols) {
+		// restTemplate = new RestTemplate();
+		String url = createURL(queryType.Qoute, symbols);
+		// String url = "https://sandbox.tradier.com/v1/markets/quotes?symbols="+symbol;
+
+		logger.error("URL created is :" + url);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		headers.setBearerAuth(apiKey);
+
+		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+		ResponseEntity<TradierPojo> response = restTemplate.exchange(url, HttpMethod.GET, entity, TradierPojo.class);
+
+		boolean isInvalid = false;
+		boolean isError = false;
+
+		HttpStatus status = response.getStatusCode();
+		if (HttpStatus.OK == status && (null == response.getBody())) {
+			isInvalid = true;
+			logger.error("Invalid Symbol : " + isInvalid);
+
+		} else if (HttpStatus.OK != status) {
+			isError = true;
+			logger.error("HTTP response status : " + status);
+		}
+
+		return response.getBody();
+	}
+
+	private String createURL(queryType qoute, List<String> symbols) {
+    	logger.error("Base URL  : "+ this.url );
+    	String url = this.url;
+    	
+    	url += (qoute == queryType.Qoute) ? (quoteQuery) : (searchQuery);
+
+    	url +=String.join(",", symbols);
+
+		
+    	logger.error("Complete URL  : "+ url );
+    	return url;
+		
 	}
 
 }

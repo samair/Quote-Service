@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.webvidhi.stocks.quotes.model.BestMatchSymbol;
 import com.webvidhi.stocks.quotes.model.GlobalQuote;
-import com.webvidhi.stocks.quotes.query.QuoteQueryDispatcher;
+import com.webvidhi.stocks.quotes.service.QuoteQueryDispatcher;
 
 @EnableCaching
 @CrossOrigin

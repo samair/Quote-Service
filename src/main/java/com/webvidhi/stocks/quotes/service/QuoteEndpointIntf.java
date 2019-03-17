@@ -1,4 +1,4 @@
-package com.webvidhi.stocks.quotes.query;
+package com.webvidhi.stocks.quotes.service;
 
 
 public interface QuoteEndpointIntf {
