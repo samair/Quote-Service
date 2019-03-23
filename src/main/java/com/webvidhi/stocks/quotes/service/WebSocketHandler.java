@@ -32,7 +32,7 @@ public class WebSocketHandler {
 	@Scheduled(fixedDelay = 5000)
 	public void addUpdateQuotes() {
 		
-		System.out.println("Timer hit!!");
+		//System.out.println("Timer hit!!");
 		sendEvnets();
 	}
 

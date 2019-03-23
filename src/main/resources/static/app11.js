@@ -18,8 +18,8 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/d9c3dc9984ae4dcd8858cba307570a78', function (greeting) {
-            showGreeting(JSON.parse(greeting.body)['05. price']);
+        stompClient.subscribe('/topic/08686530a7954064b4860d9629da78b4', function (greeting) {
+            showGreeting(JSON.parse(greeting.body)['error']);
         });
     });
 }
@@ -33,7 +33,14 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/quote-events", {}, "test");
+	stompClient.send("/start", {}, JSON.stringify({
+		sessionId : '08686530a7954064b4860d9629da78b4',
+		symbols: [
+			    "AAA",
+			    "BBB"
+			  ]
+	}))
+   // stompClient.send("/quote-events", {}, "test");
 }
 
 function showGreeting(message) {

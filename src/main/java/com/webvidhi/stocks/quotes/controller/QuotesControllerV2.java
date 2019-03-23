@@ -1,5 +1,6 @@
 package com.webvidhi.stocks.quotes.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.webvidhi.stocks.quotes.model.SessionMessage;
 import com.webvidhi.stocks.quotes.model.SessionSubscription;
 import com.webvidhi.stocks.quotes.model.SymbolSearch;
 import com.webvidhi.stocks.quotes.model.TradierPojo;
@@ -57,12 +59,19 @@ public class QuotesControllerV2 {
 	
 	@PostMapping("session/stream")
 	@ApiOperation(value = "Generate a stream session ID", response = String.class)
-	public String generateSessionId() {
+	public SessionMessage generateSessionId() {
 		
 		//Generate a session Id and send it to user.
 		String uuid = UUID.randomUUID().toString().replace("-", "");
 	    System.out.println("uuid = " + uuid);
-		return uuid;
+	    
+	    SessionMessage sessionMsg = new SessionMessage();
+	    sessionMsg.setSessionId("1234");
+	    List<String> symbols = new ArrayList<>();
+	    symbols.add("AAA");
+	    symbols.add("BBB");
+	    		sessionMsg.setSymbols(symbols);
+		return sessionMsg;
 		
 	}
 	
