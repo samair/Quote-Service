@@ -25,7 +25,7 @@ public class QouteWSController {
     	
     }
     
-    @MessageMapping("/start")
+    @MessageMapping("/stream/start")
     public void  startSubscription(@Payload SessionMessage sessionMsg , SimpMessageHeaderAccessor headerAccessor) {
     	System.out.println("Recieved payload .." + sessionMsg.getSessionId());
     	headerAccessor.getSessionAttributes().put("sessionId", sessionMsg.getSessionId());
