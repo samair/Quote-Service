@@ -33,11 +33,11 @@ function disconnect() {
 }
 
 function sendName() {
-	stompClient.send("/start", {}, JSON.stringify({
+	stompClient.send("/stream/start", {}, JSON.stringify({
 		sessionId : '08686530a7954064b4860d9629da78b4',
 		symbols: [
-			    "AAA",
-			    "BBB"
+			    "VMW",
+			    "ABC"
 			  ]
 	}))
    // stompClient.send("/quote-events", {}, "test");

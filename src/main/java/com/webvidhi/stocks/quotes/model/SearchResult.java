@@ -36,6 +36,10 @@ return this.additionalProperties;
 
 @JsonAnySetter
 public void setAdditionalProperty(String name, Object value) {
+	
+	if (name.contains("security")) {
+		System.out.println("Exchange Value :" + value);
+	}
 this.additionalProperties.put(name, value);
 }
 

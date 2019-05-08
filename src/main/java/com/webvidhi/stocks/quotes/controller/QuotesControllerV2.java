@@ -59,19 +59,13 @@ public class QuotesControllerV2 {
 	
 	@PostMapping("session/stream")
 	@ApiOperation(value = "Generate a stream session ID", response = String.class)
-	public SessionMessage generateSessionId() {
+	public String generateSessionId() {
 		
 		//Generate a session Id and send it to user.
 		String uuid = UUID.randomUUID().toString().replace("-", "");
 	    System.out.println("uuid = " + uuid);
 	    
-	    SessionMessage sessionMsg = new SessionMessage();
-	    sessionMsg.setSessionId("1234");
-	    List<String> symbols = new ArrayList<>();
-	    symbols.add("AAA");
-	    symbols.add("BBB");
-	    		sessionMsg.setSymbols(symbols);
-		return sessionMsg;
+		return uuid;
 		
 	}
 	
