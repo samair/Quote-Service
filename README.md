@@ -5,7 +5,7 @@ Service [is live in Heroku]
 
 ### API Endpoints
 
-[is live in GCE]: <http://cryptic-sands-63938.herokuapp.com/swagger-ui.html#/quotes-controller>
+[is live in Heroku]: <http://cryptic-sands-63938.herokuapp.com/swagger-ui.html#/quotes-controller>
 
 #### TODO
 - Encrypt API ketys using jaspyt
